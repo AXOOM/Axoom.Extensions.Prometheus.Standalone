@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>Axoom.Extensions.Prometheus.Standalone</AssemblyName>
+    <RootNamespace>Axoom.Extensions.Prometheus.Standalone</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <OutputPath>..\..\artifacts\$(AssemblyName)\</OutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <IncludeSource>True</IncludeSource>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Description>AXOOM Extensions Prometheus Standalone</Description>
+    <Authors>AXOOM GmbH</Authors>
+    <Company>AXOOM GmbH</Company>
+    <Copyright>Copyright (c) AXOOM GmbH</Copyright>
+    <PackageIconUrl>https://github.com/AXOOM/Axoom.Extensions.Prometheus.Standalone/raw/develop/axoom.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/AXOOM/Axoom.Extensions.Prometheus.Standalone</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AXOOM/Axoom.Extensions.Prometheus.Standalone</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.1" />
+    <PackageReference Include="Nexogen.Libraries.Metrics.Prometheus" Version="3.0.1" />
+  </ItemGroup>
+
+</Project>

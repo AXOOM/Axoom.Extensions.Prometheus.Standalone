@@ -1,0 +1,5 @@
+mode: ContinuousDeployment
+branches:
+  dev(elop)?(ment)?$:
+    tag: alpha
+    increment: patch
