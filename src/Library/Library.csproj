@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Description>AXOOM Extensions Prometheus Standalone</Description>
+    <Description>minimalist HTTP server for exposing Prometheus metrics</Description>
     <Authors>AXOOM GmbH</Authors>
     <Company>AXOOM GmbH</Company>
     <Copyright>Copyright (c) AXOOM GmbH</Copyright>
