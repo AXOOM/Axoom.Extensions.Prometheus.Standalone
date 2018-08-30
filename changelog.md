@@ -1,3 +1,6 @@
+## 1.1.3
+* Do not throw exception on shutdown
+
 ## 1.1.2
 * Published on GitHub
 

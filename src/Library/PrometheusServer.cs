@@ -26,6 +26,10 @@ namespace Axoom.Extensions.Prometheus.Standalone
                 _listener.Start();
                 _listener.BeginGetContext(ListenerCallback, _listener);
             }
+            catch (ObjectDisposedException)
+            {
+                // Do not throw exception on shutdown
+            }
             catch (Exception ex) when (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
                 logger.LogCritical(ex, "Please run the following as admin and then retry:\nnetsh http add urlacl {0} user={1}\\{2}",
@@ -47,6 +51,10 @@ namespace Axoom.Extensions.Prometheus.Standalone
                     else context.Response.StatusCode = 405; // Method not allowed
 
                     context.Response.Close();
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Do not throw exception on shutdown
                 }
                 catch (HttpListenerException ex)
                 {
