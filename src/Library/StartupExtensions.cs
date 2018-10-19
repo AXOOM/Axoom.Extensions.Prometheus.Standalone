@@ -11,7 +11,7 @@ namespace Axoom.Extensions.Prometheus.Standalone
         public static IServiceCollection AddPrometheusServer(this IServiceCollection services, IConfiguration configuration = null)
         {
             var metrics = new PrometheusMetrics();
-            return services.Configure<PrometheusServerOptions>((configuration ?? new ConfigurationBuilder().Build()).GetSection("PrometheusServer"))
+            return services.Configure<PrometheusServerOptions>(configuration ?? new ConfigurationBuilder().Build())
                            .AddSingleton<IMetrics>(metrics)
                            .AddSingleton<IExposable>(metrics)
                            .AddSingleton<PrometheusServerOptions>()

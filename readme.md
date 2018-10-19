@@ -39,6 +39,6 @@ public void ConfigureServices(IServiceCollection services)
 {
     services
         .AddOptions()
-        .AddPrometheusServer(Configuration);
+        .AddPrometheusServer(Configuration.GetSection("PrometheusServer"));
 }
 ```

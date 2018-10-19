@@ -1,3 +1,6 @@
+## 1.2.0
+* Do not pull in hard-coded `PrometheusServer` subsection from config
+
 ## 1.1.3
 * Do not throw exception on shutdown
 
