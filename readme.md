@@ -18,12 +18,6 @@ public void ConfigureServices(IServiceCollection services)
         .AddOptions()
         .AddPrometheusServer();
 }
-
-public void UseServices(IServiceProvider provider)
-{
-    provider.UsePrometheusServer();
-}
-
 ```
 
 Or override the default configuration by providing a configuration entry in the `appsetting.json`:

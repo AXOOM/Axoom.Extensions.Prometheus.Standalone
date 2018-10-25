@@ -1,3 +1,6 @@
+## 2.0.0
+* Make `PrometheusServer` implement `IHostedService` so ASP.NET Core automatically manages its lifetime
+
 ## 1.2.0
 * Do not pull in hard-coded `PrometheusServer` subsection from config
 

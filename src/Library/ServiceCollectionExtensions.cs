@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nexogen.Libraries.Metrics;
@@ -6,7 +5,7 @@ using Nexogen.Libraries.Metrics.Prometheus;
 
 namespace Axoom.Extensions.Prometheus.Standalone
 {
-    public static class StartupExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddPrometheusServer(this IServiceCollection services, IConfiguration configuration = null)
         {
@@ -14,11 +13,7 @@ namespace Axoom.Extensions.Prometheus.Standalone
             return services.Configure<PrometheusServerOptions>(configuration ?? new ConfigurationBuilder().Build())
                            .AddSingleton<IMetrics>(metrics)
                            .AddSingleton<IExposable>(metrics)
-                           .AddSingleton<PrometheusServerOptions>()
-                           .AddSingleton<PrometheusServer>();
+                           .AddHostedService<PrometheusServer>();
         }
-
-        public static void UsePrometheusServer(this IServiceProvider provider)
-            => provider.GetRequiredService<PrometheusServer>();
     }
 }
