@@ -26,6 +26,49 @@ namespace Axoom.Extensions.Prometheus.Standalone
             _logger = logger;
         }
 
+        /// <summary>
+        /// Starts exposing metrics.
+        /// </summary>
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                _listener.Start();
+            }
+            catch (HttpListenerException ex) when (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                _logger.LogCritical(ex, "Please run the following as admin and then retry:\nnetsh http add urlacl {0} user={1}\\{2}",
+                    _listener.Prefixes.First(), Environment.GetEnvironmentVariable("USERDOMAIN"), Environment.GetEnvironmentVariable("USERNAME"));
+                throw;
+            }
+
+            BeginContext();
+
+            return Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Stops exposing metrics.
+        /// </summary>
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            _listener.Abort();
+
+            return Task.CompletedTask;
+        }
+
+        private void BeginContext()
+        {
+            try
+            {
+                _listener.BeginGetContext(ListenerCallback, _listener);
+            }
+            catch (ObjectDisposedException)
+            {
+                // Do not throw exception on shutdown
+            }
+        }
+
         private async void ListenerCallback(IAsyncResult result)
         {
             try
@@ -55,41 +98,8 @@ namespace Axoom.Extensions.Prometheus.Standalone
             }
             finally
             {
-                _listener.BeginGetContext(ListenerCallback, _listener);
+                BeginContext();
             }
-        }
-
-        /// <summary>
-        /// Starts exposing metrics.
-        /// </summary>
-        public Task StartAsync(CancellationToken cancellationToken)
-        {
-            try
-            {
-                _listener.Start();
-                _listener.BeginGetContext(ListenerCallback, _listener);
-            }
-            catch (ObjectDisposedException)
-            {
-                // Do not throw exception on shutdown
-            }
-            catch (Exception ex) when (Environment.OSVersion.Platform == PlatformID.Win32NT)
-            {
-                _logger.LogCritical(ex, "Please run the following as admin and then retry:\nnetsh http add urlacl {0} user={1}\\{2}",
-                    _listener.Prefixes.First(), Environment.GetEnvironmentVariable("USERDOMAIN"), Environment.GetEnvironmentVariable("USERNAME"));
-                throw;
-            }
-
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Stops exposing metrics.
-        /// </summary>
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            _listener.Abort();
-            return Task.CompletedTask;
         }
     }
 }
