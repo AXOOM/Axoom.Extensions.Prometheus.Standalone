@@ -24,7 +24,7 @@ Or override the default configuration by providing a configuration entry in the 
 
 ```json
 {
-    "PrometheusServer": {"Port": 4999}
+    "PrometheusServer": {"Port": 5000}
 }
 ```
 
@@ -35,4 +35,12 @@ public void ConfigureServices(IServiceCollection services)
         .AddOptions()
         .AddPrometheusServer(Configuration.GetSection("PrometheusServer"));
 }
+```
+
+## On Windows
+
+You will need to run the following in an Admin PowerShell once to allow non-admin processes to bind to port 5000:
+
+```powershell
+netsh http add urlacl http://*:5000/ user=$env:USERDOMAIN\$env:USERNAME
 ```

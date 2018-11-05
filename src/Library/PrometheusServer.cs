@@ -18,7 +18,7 @@ namespace Axoom.Extensions.Prometheus.Standalone
         private readonly IExposable _metrics;
         private readonly HttpListener _listener;
         private readonly ILogger<PrometheusServer> _logger;
-        
+
         public PrometheusServer(IOptions<PrometheusServerOptions> options, IExposable metrics, ILogger<PrometheusServer> logger)
         {
             _listener = new HttpListener {Prefixes = {$"http://*:{options.Value.Port}/"}};
@@ -37,9 +37,9 @@ namespace Axoom.Extensions.Prometheus.Standalone
             }
             catch (HttpListenerException ex) when (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
-                _logger.LogCritical(ex, "Please run the following as admin and then retry:\nnetsh http add urlacl {0} user={1}\\{2}",
+                _logger.LogWarning(ex, "Unable to open port to expose metrics. Please run the following as admin and then retry:\nnetsh http add urlacl {0} user={1}\\{2}",
                     _listener.Prefixes.First(), Environment.GetEnvironmentVariable("USERDOMAIN"), Environment.GetEnvironmentVariable("USERNAME"));
-                throw;
+                return Task.CompletedTask;
             }
 
             BeginContext();

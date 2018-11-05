@@ -1,3 +1,6 @@
+## 2.0.1
+* Treat missing URL ACL on Windows as warning instead of critical error
+
 ## 2.0.0
 * Make `PrometheusServer` implement `IHostedService` so ASP.NET Core automatically manages its lifetime
 
