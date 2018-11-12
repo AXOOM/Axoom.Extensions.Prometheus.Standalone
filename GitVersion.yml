@@ -1,5 +1,15 @@
 mode: ContinuousDeployment
+
 branches:
-  dev(elop)?(ment)?$:
+  # Mainline branches
+  develop:
     tag: alpha
     increment: patch
+  master: 
+    tag: beta
+
+  # Stabilization branches
+  release:
+    tag: rc
+  hotfix:
+    tag: rc
