@@ -3,13 +3,13 @@
   <PropertyGroup>
     <AssemblyName>Axoom.Extensions.Prometheus.Standalone</AssemblyName>
     <RootNamespace>Axoom.Extensions.Prometheus.Standalone</RootNamespace>
+    <LangVersion>7.3</LangVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <OutputPath>..\..\artifacts\$(AssemblyName)\</OutputPath>
+    <OutputPath>..\..\artifacts</OutputPath>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PublishRepositoryUrl>True</PublishRepositoryUrl>
-    <EmbedUntrackedSources>True</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);1591</NoWarn>
@@ -21,8 +21,8 @@
     <Company>AXOOM GmbH</Company>
     <Copyright>Copyright (c) AXOOM GmbH</Copyright>
     <PackageIconUrl>https://github.com/AXOOM/Axoom.Extensions.Prometheus.Standalone/raw/develop/axoom.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/AXOOM/Axoom.Extensions.Prometheus.Standalone</RepositoryUrl>
     <PackageProjectUrl>https://github.com/AXOOM/Axoom.Extensions.Prometheus.Standalone</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
