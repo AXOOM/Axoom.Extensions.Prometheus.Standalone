@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,13 +14,15 @@ namespace Axoom.Extensions.Prometheus.Standalone
     /// </summary>
     public class PrometheusServer : IHostedService
     {
-        private readonly IExposable _metrics;
+        private readonly string _prefix;
         private readonly HttpListener _listener;
+        private readonly IExposable _metrics;
         private readonly ILogger<PrometheusServer> _logger;
 
         public PrometheusServer(IOptions<PrometheusServerOptions> options, IExposable metrics, ILogger<PrometheusServer> logger)
         {
-            _listener = new HttpListener {Prefixes = {$"http://*:{options.Value.Port}/"}};
+            _prefix = $"http://*:{options.Value.Port}/";
+            _listener = new HttpListener {Prefixes = {_prefix}};
             _metrics = metrics;
             _logger = logger;
         }
@@ -38,7 +39,7 @@ namespace Axoom.Extensions.Prometheus.Standalone
             catch (HttpListenerException ex) when (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
                 _logger.LogWarning(ex, "Unable to open port to expose metrics. Please run the following as admin and then retry:\nnetsh http add urlacl {0} user={1}\\{2}",
-                    _listener.Prefixes.First(), Environment.GetEnvironmentVariable("USERDOMAIN"), Environment.GetEnvironmentVariable("USERNAME"));
+                    _prefix, Environment.GetEnvironmentVariable("USERDOMAIN"), Environment.GetEnvironmentVariable("USERNAME"));
                 return Task.CompletedTask;
             }
 
