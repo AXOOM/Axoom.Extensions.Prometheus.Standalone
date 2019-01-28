@@ -7,7 +7,7 @@ build_script:
   - ps: src\build.ps1 $env:GitVersion_NuGetVersion
 
 artifacts:
-  - path: artifacts\*\*.nupkg
+  - path: artifacts\*.nupkg
 
 deploy:
   provider: Environment
